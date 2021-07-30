@@ -32,8 +32,8 @@ void process_input(char input[]) {
 	char lower;
 
 	for (i = 0; i < input_len; i++) {
+		lower = tolower(input[i]);
 		if (isalpha(input[i])
-		&& (lower = tolower(input[i]))
 		&& !lfind(&lower, uniques, &last_unique, sizeof(char), chrcmp)
 		&& last_unique < SCRAMBLE_LEN) {
 			uniques[last_unique++] = lower;
