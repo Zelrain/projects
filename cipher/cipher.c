@@ -4,7 +4,6 @@
 #include <ctype.h>
 #include <search.h>
 
-#define ALPHABET_LEN 26
 #define ALPHABET "abcdefghijklmnopqrstuvwxyz"
 #define SCRAMBLE_LEN 24
 
@@ -50,14 +49,15 @@ int chrcmp(const void *a, const void *b) {
 void print_scramble(char uniques[], size_t last_unique) {
 	char sorted_uniques[last_unique];
 	int scramble[SCRAMBLE_LEN] = {0};
-	char not_used[ALPHABET_LEN + 1] = {0};
-	size_t last_not_used = 0;
 	char alphabet[] = ALPHABET;
+	int alphabet_len = strlen(alphabet) + 1;
+	char *s_not_used = calloc(alphabet_len, sizeof(char));
+	char *p_not_used = s_not_used;
 	int i;
 
-	for (i = 0; i < ALPHABET_LEN; i++) {
+	for (i = 0; i < alphabet_len; i++) {
 		if (!lfind(&alphabet[i], uniques, &last_unique, sizeof(char), chrcmp)) {
-			not_used[last_not_used++] = alphabet[i];
+			 *p_not_used++ = alphabet[i];
 		}
 	}
 	strcpy(sorted_uniques, uniques);
@@ -68,13 +68,14 @@ void print_scramble(char uniques[], size_t last_unique) {
 	for (i = 0; i < SCRAMBLE_LEN; i++) {
 		if (!scramble[i]) {
 			printf("%-2d X  ", i + 1);
-			print_unused(not_used);
+			print_unused(s_not_used);
 			printf("\n");
 		}
 		else {
 			printf("%-2d %-2d %c\n", i + 1, scramble[i], uniques[i]);
 		}
 	}
+	free(s_not_used);
 }
 
 int find_scramble_index(char letter, char *sorted_uniques, int stop) {
