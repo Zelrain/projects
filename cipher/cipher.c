@@ -6,9 +6,7 @@
 
 #define ALPHABET_LEN 26
 #define ALPHABET "abcdefghijklmnopqrstuvwxyz"
-#define MAX_INPUT_LEN 1000
 #define SCRAMBLE_LEN 24
-
 
 void process_input(char input[]); 
 int chrcmp(const void *a, const void *b); 
@@ -52,13 +50,12 @@ int chrcmp(const void *a, const void *b) {
 void print_scramble(char uniques[], size_t last_unique) {
 	char sorted_uniques[last_unique];
 	int scramble[SCRAMBLE_LEN] = {0};
-	char not_used[SCRAMBLE_LEN];
-	int last_not_used = 0;
+	char not_used[ALPHABET_LEN + 1] = {0};
+	size_t last_not_used = 0;
 	char alphabet[] = ALPHABET;
-	int alphabet_len = ALPHABET_LEN;
 	int i;
 
-	for (i = 0; i < alphabet_len; i++) {
+	for (i = 0; i < ALPHABET_LEN; i++) {
 		if (!lfind(&alphabet[i], uniques, &last_unique, sizeof(char), chrcmp)) {
 			not_used[last_not_used++] = alphabet[i];
 		}
@@ -93,7 +90,7 @@ void print_unused(char *unused) {
 
 	if (letter = *unused++) {
 		printf("%c", letter);
-		while (letter = *unused++) 
+		while (letter = *unused++)
 			printf(", %c", letter);
 	}
 }
