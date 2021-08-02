@@ -16,7 +16,7 @@ void print_unused(char *unused);
 int main(int argc, char *argv[]) {
 	if (argc != 2) {
 		fprintf(stderr,"%s expects a single string argument.\n", argv[0]);
-		exit(1);
+		exit(EXIT_FAILURE);
 	} 
 	else {
 		process_input(argv[1]);
