@@ -89,9 +89,9 @@ int find_scramble_index(char letter, char *sorted_uniques, int stop) {
 void print_unused(char *unused) {
 	char letter;
 
-	if (letter = *unused++) {
+	if ((letter = *unused++)) {
 		printf("%c", letter);
-		while (letter = *unused++)
+		while ((letter = *unused++))
 			printf(", %c", letter);
 	}
 }
