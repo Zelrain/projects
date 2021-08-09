@@ -2,9 +2,11 @@
 #include <stdlib.h>
 #include <termios.h>
 #include <ctype.h>
+#include <aes.h>
 
 #define KEY_FILE "keys.txt"
-#define MASTER_PASS_MAXLEN 51
+#define MASTER_PASS_MAXLEN 50
+#define LINE_MAXLEN 1000
 
 
 size_t get_pass (char *p_pass, size_t l_pass); 
@@ -16,10 +18,34 @@ int main (int l_argv, char **s_argv) {
 	size_t lmax_master = MASTER_PASS_MAXLEN;
 	size_t l_master = 0;
 
+
 	printf("Enter master password:\n");
 	l_master = get_pass(s_master, lmax_master);
 	printf("%s\n", s_master);
 	return 0;
+}
+
+int read_key_file(char *p_lines[]) {
+	size_t l_lines = 0;
+	FILE *file_keys;
+	char file_char;
+
+	if (file_keys = fopen(KEY_FILE, "r")) {
+		while ((file_char = getc(file_keys)) != EOF) {
+			if (file_char == '\n')
+				l_lines++;
+		}
+		if (l_lines) {
+			p_lines = calloc(l_lines, sizeof(char[LINE_MAXLEN]));
+			rewind(file_keys);
+			*p_lines = 
+			while ((file_char = getc(file_keys)) != EOF) {
+
+			}
+		}
+		fclose(file_keys);
+	}
+	return l_file_keys;
 }
 
 size_t get_pass (char *p_pass, size_t l_pass) {
